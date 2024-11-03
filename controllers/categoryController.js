@@ -1,3 +1,4 @@
+const db = require('../config/db');
 const Category = require('../models/categoryModel');
 const getCategories = (req, res) => Category.getAll((err, results) => err ? res.status(500).send(err) : res.json(results));
 const getCategoryById = (req, res) => Category.getById(req.params.id, (err, results) => results.length === 0 ? res.status(404).send('Category not found') : res.json(results[0]));
