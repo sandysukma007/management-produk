@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import ProductForm from '../components/ProductForm';
-import ProductList from '../components/ProductList';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import ProductList from '../components/ProductList';
 
-const ProductPage = () => {
+const ProductListPage = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -21,15 +20,6 @@ const ProductPage = () => {
     };
     fetchProducts();
   }, []);
-
-  const handleAddProduct = async (newProduct) => {
-    try {
-      const response = await axios.post('http://localhost:4000/products', newProduct);
-      setProducts([...products, response.data]);
-    } catch (error) {
-      setError('Gagal menambah produk');
-    }
-  };
 
   const handleDeleteProduct = async (id) => {
     try {
@@ -54,11 +44,14 @@ const ProductPage = () => {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-4">Manajemen Produk</h1>
-      <ProductForm onSubmit={handleAddProduct} />
-      <ProductList products={products} onDelete={handleDeleteProduct} onUpdate={handleUpdateProduct} />
+      <h1>Daftar Produk</h1>
+      <ProductList 
+        products={products} 
+        onDelete={handleDeleteProduct} 
+        onUpdate={handleUpdateProduct} 
+      />
     </div>
   );
 };
 
-export default ProductPage;
+export default ProductListPage;
