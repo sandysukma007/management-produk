@@ -15,17 +15,23 @@ const ProductList = ({ products, onDelete }) => {
           </tr>
         </thead>
         <tbody>
-          {products.map((product) => (
-            <tr key={product.id}>
-              <td className="border border-gray-300 p-2">{product.name}</td>
-              <td className="border border-gray-300 p-2">{product.description}</td>
-              <td className="border border-gray-300 p-2">{product.price}</td>
-              <td className="border border-gray-300 p-2">{product.stock}</td>
-              <td className="border border-gray-300 p-2">
-                <button onClick={() => onDelete(product.id)} className="bg-red-500 text-white p-1 rounded">Hapus</button>
-              </td>
+          {products.length === 0 ? (
+            <tr>
+              <td colSpan="5" className="text-center border border-gray-300 p-2">Tidak ada produk</td>
             </tr>
-          ))}
+          ) : (
+            products.map((product) => (
+              <tr key={product.id}>
+                <td className="border border-gray-300 p-2">{product.name}</td>
+                <td className="border border-gray-300 p-2">{product.description}</td>
+                <td className="border border-gray-300 p-2">{new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(product.price)}</td>
+                <td className="border border-gray-300 p-2">{product.stock}</td>
+                <td className="border border-gray-300 p-2">
+                  <button onClick={() => onDelete(product.id)} className="bg-red-500 text-white p-1 rounded">Hapus</button>
+                </td>
+              </tr>
+            ))
+          )}
         </tbody>
       </table>
     </div>
